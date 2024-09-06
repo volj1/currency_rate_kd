@@ -1,0 +1,26 @@
+version: '3.8'
+name: currency_rate
+services:
+    code:
+        container_name: currency-rate
+        image: alexkrasnov123/currency-rate
+        ports:
+            - "5000:5000"
+        environment:
+            DB_PORT: "5432"
+            DB_HOST: "db"
+            DB_PASS: "4100"
+            DB_USER: "postgres"
+        depends_on:
+            - db
+        deploy:
+            restart_policy:
+                condition: on-failure
+    db:
+        image: postgres
+        container_name: database
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: "4100"
+        ports:
+            - "5437:5432"
